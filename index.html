@@ -12,39 +12,44 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at top, #102a55, #0B1F3F);
+      background: #0B1F3F;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 40px 20px;
-      overflow: hidden;
     }
 
-    /* FADE IN GLOBAL */
+    /* ANIMATION GLOBAL */
     .fade-in {
       animation: fadeIn 1.2s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* LOGO ULTRA INTERACTIF */
+    /* LOGO + EFFET 3D */
     .logo {
       max-width: 520px;
       width: 100%;
       margin-bottom: 25px;
       border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+
+      transition: transform 0.4s ease;
       transform-style: preserve-3d;
-      will-change: transform;
     }
 
-    /* glow dynamique */
-    .logo.glow {
-      box-shadow: 0 25px 80px rgba(0, 180, 255, 0.25);
+    /* HOVER 3D ROTATION */
+    .logo:hover {
+      transform: perspective(800px) rotateX(15deg);
     }
 
     /* TITRE */
@@ -67,43 +72,31 @@
     .linkedin img {
       width: 42px;
       transition: transform 0.2s ease, opacity 0.2s ease;
+      border-radius: 0;
     }
 
     .linkedin img:hover {
       opacity: 0.7;
-      transform: scale(1.15);
+      transform: scale(1.1);
     }
 
-    a { text-decoration: none; }
-
-    /* PARTICULES DE FOND SIMPLES */
-    body::before {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: moveBg 20s linear infinite;
-      top: -50%;
-      left: -50%;
-      z-index: 0;
+    a {
+      text-decoration: none;
     }
 
-    @keyframes moveBg {
-      from { transform: translate(0,0); }
-      to { transform: translate(50px,50px); }
-    }
-
-    .fade-in {
-      position: relative;
-      z-index: 1;
-    }
-
+    /* RESPONSIVE MOBILE */
     @media (max-width: 600px) {
-      h1 { font-size: 22px; }
-      .description { font-size: 15px; }
-      .logo { max-width: 90%; }
+      h1 {
+        font-size: 22px;
+      }
+
+      .description {
+        font-size: 15px;
+      }
+
+      .logo {
+        max-width: 90%;
+      }
     }
   </style>
 </head>
@@ -112,7 +105,7 @@
 
   <div class="fade-in">
 
-    <img src="logo.png" alt="Logo" class="logo" id="logo">
+    <img src="logo.png" alt="Logo" class="logo">
 
     <h1>Turning sunlight into clean hydrogen power</h1>
 
@@ -127,29 +120,6 @@
     </a>
 
   </div>
-
-  <script>
-    const logo = document.getElementById("logo");
-
-    document.addEventListener("mousemove", (e) => {
-      const x = (window.innerWidth / 2 - e.clientX) / 25;
-      const y = (window.innerHeight / 2 - e.clientY) / 25;
-
-      logo.style.transform = `
-        perspective(900px)
-        rotateY(${x}deg)
-        rotateX(${y}deg)
-        scale(1.02)
-      `;
-
-      logo.classList.add("glow");
-    });
-
-    document.addEventListener("mouseleave", () => {
-      logo.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)";
-      logo.classList.remove("glow");
-    });
-  </script>
 
 </body>
 </html>
